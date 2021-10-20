@@ -16,8 +16,15 @@ class SignIn extends Component {
     };
   }
 
-  handleClick = () => {
+  successSignIn = () => {
     const { email, password } = this.state;
+
+    if (email === '') {
+      return alert('이메일을 입력해주세요');
+    } else if (password === '') {
+      return alert('비밀번호를 입력해주세요');
+    }
+
     fetch('/account/login', {
       method: 'POST',
       headers: {
@@ -33,11 +40,10 @@ class SignIn extends Component {
         return res.json();
       })
       .then(data => {
-        console.log(data);
         if (data.status === 'FAILED') {
-          alert(data.message);
+          alert('잘못된 패스워드입니다.');
         } else if (data.status === 'SUCCESS') {
-          alert(data.message);
+          alert('로그인에 성공했습니다!');
           if (data.Authorization) {
             localStorage.setItem('token', data.Authorization);
           }
@@ -46,24 +52,9 @@ class SignIn extends Component {
       });
   };
 
-  checkToken = () => {
-    const token = localStorage.getItem('token');
-  };
-
   handleInput = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
-  };
-
-  signInFailAlert = () => {
-    const { email, password } = this.state;
-    if (email === '') {
-      return alert('이메일을 입력해주세요');
-    } else if (password === '') {
-      return alert('비밀번호를 입력해주세요');
-    } else if (email !== '' && password !== '') {
-      return alert('유효한 형식으로 작성해주세요');
-    }
   };
 
   changeIcon = () => {
@@ -95,20 +86,22 @@ class SignIn extends Component {
               onChange={this.handleInput}
             />
             <p className='password'>비밀번호</p>
-            <input
-              className='passwordInput'
-              type={showPw ? 'text' : 'password'}
-              placeholder='비밀번호'
-              name='password'
-              onChange={this.handleInput}
-            />
-            <div className='onEye' onClick={this.changeIcon}>
-              {showPw ? <FaEyeSlash /> : <FaEye />}
+            <div className='passwordContainer'>
+              <input
+                className='passwordInput'
+                type={showPw ? 'text' : 'password'}
+                placeholder='비밀번호'
+                name='password'
+                onChange={this.handleInput}
+              />
+              <div className='onEye' onClick={this.changeIcon}>
+                {showPw ? <FaEyeSlash /> : <FaEye />}
+              </div>
             </div>
             <button
               className='signInButton'
               type='button'
-              onClick={this.handleClick}
+              onClick={this.successSignIn}
             >
               <p className='signInText'>LOGIN</p>
             </button>
