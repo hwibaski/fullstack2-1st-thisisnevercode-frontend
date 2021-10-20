@@ -79,7 +79,7 @@
 
       .checkInput {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: wrap;
         margin: 10px auto 40px auto;
         padding-left: 150px;
@@ -101,35 +101,35 @@
             font-size: 25px;
           }
         }
-      }
 
-      .subCheck {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-        width: 500px;
+        .subCheck {
+          display: flex;
+          align-items: center;
+          margin-bottom: 15px;
+          width: 500px;
 
-        .choose {
-          margin-left: 5px;
-          color: gray;
-        }
+          .choose {
+            margin-left: 5px;
+            color: gray;
+          }
 
-        .checkPoint {
-          width: 15px;
-          height: 15px;
-          margin-right: 20px;
-          cursor: pointer;
-        }
+          .checkPoint {
+            width: 15px;
+            height: 15px;
+            margin-right: 20px;
+            cursor: pointer;
+          }
 
-        .checkPoint:checked {
-          color: white;
-          background-color: black;
-        }
+          .checkPoint:checked {
+            color: white;
+            background-color: black;
+          }
 
-        .readMore {
-          position: absolute;
-          margin-left: 300px;
-          text-decoration: underline;
+          .readMore {
+            position: absolute;
+            margin-left: 300px;
+            text-decoration: underline;
+          }
         }
       }
 
@@ -180,6 +180,11 @@
         width: 100vw;
         padding-left: 30px;
         padding-right: 30px;
+
+        .checkInput {
+          padding-left: 0%;
+          margin-left: auto;
+        }
       }
     }
   }
