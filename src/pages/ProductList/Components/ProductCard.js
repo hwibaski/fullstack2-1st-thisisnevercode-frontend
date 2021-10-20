@@ -88,7 +88,7 @@ class ProductCard extends Component {
                   className={className}
                   onMouseEnter={this.changeMainToDetailImage}
                   onMouseLeave={this.changeMainImage}
-                  key={index}
+                  key={className}
                 />
               );
             })}
