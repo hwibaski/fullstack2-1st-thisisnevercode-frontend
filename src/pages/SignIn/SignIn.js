@@ -16,7 +16,7 @@ class SignIn extends Component {
     };
   }
 
-  successSignIn = () => {
+  handleSignIn = () => {
     const { email, password } = this.state;
 
     if (email === '') {
@@ -98,7 +98,7 @@ class SignIn extends Component {
             <button
               className='signInButton'
               type='button'
-              onClick={this.successSignIn}
+              onClick={this.handleSignIn}
             >
               <p className='signInText'>LOGIN</p>
             </button>
