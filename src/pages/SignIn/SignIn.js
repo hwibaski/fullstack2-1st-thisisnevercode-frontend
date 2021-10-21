@@ -44,9 +44,6 @@ class SignIn extends Component {
           alert('잘못된 패스워드입니다.');
         } else if (data.status === 'SUCCESS') {
           alert('로그인에 성공했습니다!');
-          if (data.Authorization) {
-            localStorage.setItem('token', data.Authorization);
-          }
           this.goToList();
         }
       });
