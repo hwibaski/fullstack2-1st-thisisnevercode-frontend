@@ -18,13 +18,11 @@ class SignIn extends Component {
 
   handleSignIn = () => {
     const { email, password } = this.state;
-
     if (email === '') {
       return alert('이메일을 입력해주세요');
     } else if (password === '') {
       return alert('비밀번호를 입력해주세요');
     }
-
     fetch('/account/login', {
       method: 'POST',
       headers: {
