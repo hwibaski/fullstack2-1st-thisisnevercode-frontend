@@ -33,6 +33,7 @@ class SignUp extends Component {
       isInformationAgreeChecked,
       isMyselfAgreeChecked,
     } = this.state;
+
     const correctName = /^[가-힣]{2,4}$/;
     const correctEmail =
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -41,6 +42,7 @@ class SignUp extends Component {
     const checkName = !name.match(correctName) || name === '';
     const checkEmail = !email.match(correctEmail) || email === '';
     const checkPassword = !password.match(correctPassword) || password === '';
+
     if (checkName) {
       return alert('이름을 입력해주세요');
     } else if (checkEmail) {
@@ -56,6 +58,7 @@ class SignUp extends Component {
     ) {
       return alert('필수 동의버튼을 눌러주세요');
     }
+
     fetch('/account/register', {
       method: 'POST',
       headers: {
@@ -91,6 +94,7 @@ class SignUp extends Component {
     this.setState({
       [name]: checked,
     });
+
     if (name === 'isAllAgreeChecked') {
       if (checked) {
         this.setState({
@@ -110,6 +114,7 @@ class SignUp extends Component {
         });
       }
     }
+
     if (
       name === 'isUseAgreeChecked' ||
       name === 'isInformationAgreeChecked' ||
@@ -150,11 +155,13 @@ class SignUp extends Component {
       isMarketingAgreeChecked,
       isMyselfAgreeChecked,
     } = this.state;
+
     const correctName = /^[가-힣]{2,4}$/;
     const correctEmail =
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     const correctPassword =
       /^.*(?=^.{5,12}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+
     const checkName = name.match(correctName) || name === '';
     const checkEmail = email.match(correctEmail) || email === '';
     const checkPassword = password.match(correctPassword) || password === '';
