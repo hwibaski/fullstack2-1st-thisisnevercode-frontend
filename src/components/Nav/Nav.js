@@ -8,7 +8,7 @@ import NavForResponsive from './NavForResponsive';
 import SortBtn from './SortBtn';
 import ViewBtn from './ViewBtn';
 import { convertToUrlForNav } from '../../utils/urlConverter';
-import API_ENDPOINT from '../../../api';
+import API_ENDPOINT from '../../API/api';
 import './Nav.scss';
 
 class Nav extends Component {
