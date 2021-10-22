@@ -46,7 +46,7 @@ class ProductCard extends Component {
       'hoverEventArea1',
       'hoverEventArea2',
       'hoverEventArea3',
-    ].map(area => {
+    ].forEach(area => {
       const idx = hoverEventArea[area];
       switch (event.target.className) {
         case `hoverEventArea${idx}`:

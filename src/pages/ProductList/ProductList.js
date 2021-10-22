@@ -5,6 +5,7 @@ import InfiniteScroll from './Components/infiniteScroll';
 import Nav from '../../components/Nav/Nav';
 import Footer from '../../components/Footer';
 import './ProductList.scss';
+import API_ENDPOINT from '../../../api';
 
 class ProductList extends Component {
   constructor(props) {
@@ -70,19 +71,20 @@ class ProductList extends Component {
     pricelow && (queryParameter = 'pricelow');
     pricehigh && (queryParameter = 'pricehigh');
     trend && (queryParameter = 'trend');
-    const { hasMoreData, offset } = this.state;
+    const { hasMoreData, offset, isLoading } = this.state;
 
-    fetch(`/product?sort=${queryParameter}&offset=${offset}`)
+    fetch(`${API_ENDPOINT}/product?sort=${queryParameter}&offset=${offset}`)
       .then(res => res.json())
       .then(data => {
-        const duplicatedData = [...data.LIST_DATA.product];
-        const newDatalistData = this.state.listData.concat(duplicatedData);
+        const listData = data.LIST_DATA.product;
+        const newItemList = [...this.state.listData, ...listData];
         this.setState({
-          listData: newDatalistData,
+          listData: newItemList,
         });
-        if (this.state.listData.length === 30) {
+        if (data.LIST_DATA.product.length === 0) {
           this.setState({
             hasMoreData: !hasMoreData,
+            isLoading: false,
           });
           return window.removeEventListener('scroll', this.handleScroll);
         }
@@ -91,11 +93,11 @@ class ProductList extends Component {
   };
 
   showLoadingSvg = resolve => {
-    const { listData, offset, isLoading } = this.state;
+    const { listData, isLoading } = this.state;
     return new Promise(resolve => {
-      if (listData.length !== offset + 10) {
+      if (listData.length === 0) {
         this.setState({
-          isLoading: isLoading,
+          isLoading: false,
         });
       } else {
         this.setState({
@@ -109,7 +111,7 @@ class ProductList extends Component {
   };
 
   handleScroll = async () => {
-    const { totalCountDataFetched, offset } = this.state;
+    const { offset } = this.state;
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
     let scrollTotalHeight = scrollHeight;
     let scrollHeightFromTop = scrollTop;
