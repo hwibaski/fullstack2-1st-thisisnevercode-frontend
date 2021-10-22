@@ -4,6 +4,7 @@ import { FaEye } from 'react-icons/fa';
 import { FaEyeSlash } from 'react-icons/fa';
 import Nav from '../../components/Nav/Nav';
 import Footer from '../../components/Footer';
+import API_ENDPOINT from '../../../api';
 import './SignIn.scss';
 
 class SignIn extends Component {
@@ -18,7 +19,7 @@ class SignIn extends Component {
 
   handleClick = () => {
     const { email, password } = this.state;
-    fetch('/account/login', {
+    fetch(`${API_ENDPOINT}/account/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -36,7 +37,7 @@ class SignIn extends Component {
         console.log(data);
         if (data.status === 'FAILED') {
           alert(data.message);
-        } else if (data.status === 'SUCCESS') {
+        } else if (data.status === 'SUCCESS_LOGIN') {
           alert(data.message);
           if (data.Authorization) {
             localStorage.setItem('token', data.Authorization);
@@ -75,7 +76,7 @@ class SignIn extends Component {
   goToList = () => {
     const { email, password } = this.state;
     if (email.includes('@') && password.length >= 5) {
-      this.props.history.push('./products/shoes');
+      this.props.history.push('./main');
     }
   };
 

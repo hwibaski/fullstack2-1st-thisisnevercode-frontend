@@ -5,6 +5,7 @@ import ProductInfo from './Components/ProductInfo';
 import Nav from '../../components/Nav/Nav';
 import Footer from '../../components/Footer';
 import './ProductDetail.scss';
+import API_ENDPOINT from '../../../api';
 
 class ProductDetail extends Component {
   constructor() {
@@ -23,7 +24,7 @@ class ProductDetail extends Component {
 
   componentDidMount() {
     const id = this.props.match.params.id;
-    fetch(`/product/${id}`)
+    fetch(`${API_ENDPOINT}/product/${id}`)
       .then(res => res.json())
       .then(res => {
         this.setState({ product: res });

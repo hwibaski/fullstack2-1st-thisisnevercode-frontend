@@ -8,7 +8,9 @@ import NavForResponsive from './NavForResponsive';
 import SortBtn from './SortBtn';
 import ViewBtn from './ViewBtn';
 import { convertToUrlForNav } from '../../utils/urlConverter';
+import API_ENDPOINT from '../../../api';
 import './Nav.scss';
+
 class Nav extends Component {
   state = {
     isNavVisible: true,
@@ -35,7 +37,7 @@ class Nav extends Component {
       )
       .catch(console.log);
 
-    fetch('/category')
+    fetch(`${API_ENDPOINT}/category`)
       .then(res => {
         return res.json();
       })
@@ -179,12 +181,12 @@ class Nav extends Component {
                   KOR / ₩
                 </Link>
               </li>
-              <li className='navMenuItem' onClick={this.logout}>
+              <li className='navMenuItem'>
                 <Link
                   className='navMenuLink'
-                  to={!localStorage.token && '/signin'}
+                  to={!localStorage.token ? '/signin' : '/account'}
                 >
-                  {localStorage.token ? 'LOGOUT' : 'LOGIN'}
+                  {localStorage.token ? 'ACCOUNT' : 'LOGIN'}
                 </Link>
               </li>
               <li className='navMenuItem'>
