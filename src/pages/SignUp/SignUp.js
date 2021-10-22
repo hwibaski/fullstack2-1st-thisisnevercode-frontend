@@ -4,7 +4,7 @@ import { FaEye } from 'react-icons/fa';
 import { FaEyeSlash } from 'react-icons/fa';
 import Nav from '../../components/Nav/Nav';
 import Footer from '../../components/Footer';
-import API_ENDPOINT from '../../API/api';
+import { API_ENDPOINT } from '../../API/api';
 import './SignUp.scss';
 
 class SignUp extends Component {
@@ -24,8 +24,42 @@ class SignUp extends Component {
     };
   }
 
-  handleClick = () => {
-    const { name, email, password, address } = this.state;
+  checkedSignUp = () => {
+    const {
+      name,
+      email,
+      password,
+      address,
+      isUseAgreeChecked,
+      isInformationAgreeChecked,
+      isMyselfAgreeChecked,
+    } = this.state;
+
+    const correctName = /^[가-힣]{2,4}$/;
+    const correctEmail =
+      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    const correctPassword =
+      /^.*(?=^.{5,12}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+    const checkName = !name.match(correctName) || name === '';
+    const checkEmail = !email.match(correctEmail) || email === '';
+    const checkPassword = !password.match(correctPassword) || password === '';
+
+    if (checkName) {
+      return alert('이름을 입력해주세요');
+    } else if (checkEmail) {
+      return alert('이메일을 입력해주세요');
+    } else if (checkPassword) {
+      return alert('비밀번호를 입력해주세요');
+    } else if (address === '') {
+      return alert('주소를 입력해주세요');
+    } else if (
+      !isUseAgreeChecked &&
+      !isInformationAgreeChecked &&
+      !isMyselfAgreeChecked
+    ) {
+      return alert('필수 동의버튼을 눌러주세요');
+    }
+
     fetch(`${API_ENDPOINT}/account/register`, {
       method: 'POST',
       headers: {
@@ -44,10 +78,10 @@ class SignUp extends Component {
       .then(data => {
         console.log(data);
         if (data.status === 'FAILED') {
-          alert(data.message);
+          alert('중복된 이메일입니다');
         } else if (data.status === 'SUCCESS_SIGNUP') {
-          alert(data.message);
-          this.goToList();
+          alert('회원가입에 성공하였습니다');
+          this.goToSignIn();
         }
       });
   };
@@ -107,23 +141,7 @@ class SignUp extends Component {
     });
   };
 
-  signUpFailAlert = () => {
-    const {
-      isUseAgreeChecked,
-      isInformationAgreeChecked,
-      isMyselfAgreeChecked,
-    } = this.state;
-
-    if (
-      !isUseAgreeChecked &&
-      !isInformationAgreeChecked &&
-      !isMyselfAgreeChecked
-    ) {
-      return alert('필수 동의버튼을 눌러주세요');
-    }
-  };
-
-  goToList = () => {
+  goToSignIn = () => {
     this.props.history.push('./signin');
   };
 
@@ -133,22 +151,12 @@ class SignUp extends Component {
       name,
       email,
       password,
-      address,
       isAllAgreeChecked,
       isUseAgreeChecked,
       isInformationAgreeChecked,
       isMarketingAgreeChecked,
       isMyselfAgreeChecked,
     } = this.state;
-
-    const inputComplete =
-      email.includes('@') &&
-      name.includes('') &&
-      password.length >= 5 &&
-      address.includes('') &&
-      isUseAgreeChecked &&
-      isInformationAgreeChecked &&
-      isMyselfAgreeChecked;
 
     const correctName = /^[가-힣]{2,4}$/;
     const correctEmail =
@@ -192,15 +200,17 @@ class SignUp extends Component {
                 비밀번호는 5자리 이상, 12자리 이하여야 합니다. (문자, 특수문자
                 포함)
               </p>
-              <input
-                className='passwordBox'
-                type={showPw ? 'text' : 'password'}
-                placeholder='비밀번호'
-                name='password'
-                onChange={this.handleInput}
-              />
-              <div className='onEye' onClick={this.changeIcon}>
-                {showPw ? <FaEyeSlash /> : <FaEye />}
+              <div className='passwordContainer'>
+                <input
+                  className='passwordBox'
+                  type={showPw ? 'text' : 'password'}
+                  placeholder='비밀번호'
+                  name='password'
+                  onChange={this.handleInput}
+                />
+                <div className='onEye' onClick={this.changeIcon}>
+                  {showPw ? <FaEyeSlash /> : <FaEye />}
+                </div>
               </div>
               <p className='address'>주소</p>
               <input
@@ -282,8 +292,7 @@ class SignUp extends Component {
               <button
                 className='registerBox'
                 type='button'
-                onClick={this.handleClick}
-                disabled={inputComplete ? false : true}
+                onClick={this.checkedSignUp}
               >
                 <p className='registerStyle'>REGISTER</p>
               </button>

@@ -5,7 +5,7 @@ import InfiniteScroll from './Components/infiniteScroll';
 import Nav from '../../components/Nav/Nav';
 import Footer from '../../components/Footer';
 import './ProductList.scss';
-import API_ENDPOINT from '../../API/api';
+import { API_ENDPOINT } from '../../API/api';
 
 class ProductList extends Component {
   constructor(props) {

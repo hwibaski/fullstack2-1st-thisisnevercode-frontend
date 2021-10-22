@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 // import Nav from '../../components/Nav/Nav';
 // import Footer from '../../components/Footer';
 // import Modal from '../Account/components/Modal';
-import API_ENDPOINT from '../../API/api';
+import { API_ENDPOINT } from '../../API/api';
 import './Account.scss';
 
 function Account() {

@@ -24,7 +24,7 @@ class SortOptionBox extends Component {
           </button>
         </div>
         <ul className='sortList classForSortClose'>
-          {sortOptions.map(sortOption => {
+          {sortOptions?.map(sortOption => {
             const { isChecked, id, name } = sortOption;
             return (
               <SortOption

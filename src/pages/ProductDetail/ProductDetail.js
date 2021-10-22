@@ -5,7 +5,7 @@ import ProductInfo from './Components/ProductInfo';
 import Nav from '../../components/Nav/Nav';
 import Footer from '../../components/Footer';
 import './ProductDetail.scss';
-import API_ENDPOINT from '../../API/api';
+import { API_ENDPOINT } from '../../API/api';
 
 class ProductDetail extends Component {
   constructor() {
