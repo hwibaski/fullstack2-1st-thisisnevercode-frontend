@@ -4,6 +4,7 @@ import { FaEye } from 'react-icons/fa';
 import { FaEyeSlash } from 'react-icons/fa';
 import Nav from '../../components/Nav/Nav';
 import Footer from '../../components/Footer';
+import API_ENDPOINT from '../../../api';
 import './SignUp.scss';
 
 class SignUp extends Component {
@@ -23,6 +24,7 @@ class SignUp extends Component {
     };
   }
 
+<<<<<<< HEAD
   checkedSignUp = () => {
     const {
       name,
@@ -60,6 +62,11 @@ class SignUp extends Component {
     }
 
     fetch('/account/register', {
+=======
+  handleClick = () => {
+    const { name, email, password, address } = this.state;
+    fetch(`${API_ENDPOINT}/account/register`, {
+>>>>>>> master
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -75,11 +82,19 @@ class SignUp extends Component {
         return res.json();
       })
       .then(data => {
+        console.log(data);
         if (data.status === 'FAILED') {
+<<<<<<< HEAD
           alert('중복된 이메일입니다.');
         } else if (data.status === 'SUCCESS') {
           alert('회원가입에 성공하였습니다!');
           this.goToSignIn();
+=======
+          alert(data.message);
+        } else if (data.status === 'SUCCESS_SIGNUP') {
+          alert(data.message);
+          this.goToList();
+>>>>>>> master
         }
       });
   };

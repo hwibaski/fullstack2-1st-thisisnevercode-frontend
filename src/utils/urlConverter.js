@@ -2,7 +2,7 @@ export const convertToUrlForBreadCrumb = function (pathname) {
   const splitted = pathname.split('/');
   const target = splitted[2];
   const strSplit = target.split('');
-  strSplit[0] = strSplit[0].toUpperCase();
+  // strSplit[0] = strSplit[0].toUpperCase();
   return strSplit.join('');
 };
 

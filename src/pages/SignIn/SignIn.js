@@ -4,6 +4,7 @@ import { FaEye } from 'react-icons/fa';
 import { FaEyeSlash } from 'react-icons/fa';
 import Nav from '../../components/Nav/Nav';
 import Footer from '../../components/Footer';
+import API_ENDPOINT from '../../../api';
 import './SignIn.scss';
 
 class SignIn extends Component {
@@ -23,7 +24,8 @@ class SignIn extends Component {
     } else if (password === '') {
       return alert('비밀번호를 입력해주세요');
     }
-    fetch('/account/login', {
+
+    fetch(`${API_ENDPOINT}/account/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -39,9 +41,9 @@ class SignIn extends Component {
       })
       .then(data => {
         if (data.status === 'FAILED') {
-          alert('잘못된 패스워드입니다.');
-        } else if (data.status === 'SUCCESS') {
-          alert('로그인에 성공했습니다!');
+          alert('잘못된 패스워드입니다');
+        } else if (data.status === 'SUCCESS_LOGIN') {
+          alert('로그인에 성공하였습니다');
           this.goToList();
         }
       });
@@ -61,7 +63,7 @@ class SignIn extends Component {
   goToList = () => {
     const { email, password } = this.state;
     if (email.includes('@') && password.length >= 5) {
-      this.props.history.push('./products/shoes');
+      this.props.history.push('./main');
     }
   };
 

@@ -46,7 +46,7 @@ class ProductCard extends Component {
       'hoverEventArea1',
       'hoverEventArea2',
       'hoverEventArea3',
-    ].map(area => {
+    ].forEach(area => {
       const idx = hoverEventArea[area];
       switch (event.target.className) {
         case `hoverEventArea${idx}`:
@@ -94,18 +94,24 @@ class ProductCard extends Component {
             })}
 
             <div className='imageWrapper'>
-              <img className='mainImage' src={`${mainImageUrl}`} alt={name} />
-              {mainImage ? (
+              <img
+                className='mainImage'
+                src={`${mainImageUrl}`}
+                alt={name}
+                key={id}
+              />
+              {mainImage && (
                 <img
                   className='ProductDetailCard'
                   src={`${mainImage}`}
                   alt={detailImage.image}
                   key={detailImage.keyNumber}
                 />
-              ) : null}
+              )}
             </div>
           </div>
         </Link>
+
         <div className='subImgWrapper'>
           {subImage &&
             subImage.map(product => {

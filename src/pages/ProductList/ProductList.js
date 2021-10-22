@@ -5,6 +5,7 @@ import InfiniteScroll from './Components/infiniteScroll';
 import Nav from '../../components/Nav/Nav';
 import Footer from '../../components/Footer';
 import './ProductList.scss';
+import API_ENDPOINT from '../../../api';
 
 class ProductList extends Component {
   constructor(props) {
@@ -12,9 +13,8 @@ class ProductList extends Component {
     this.state = {
       offset: 0,
       listData: [],
-      totalCountDataFetched: 10,
-      loading: false,
-      noData: false,
+      isLoading: false,
+      hasMoreData: false,
       sortOptions: [
         { id: 1, name: 'Recent', isChecked: true },
         { id: 2, name: 'Price (Low)', isChecked: false },
@@ -45,10 +45,9 @@ class ProductList extends Component {
       {
         listData: [],
         offset: 0,
-        loading: false,
-        totalCountDataFetched: 10,
+        isLoading: false,
         sortOptions: newsortOptions,
-        noData: false,
+        hasMoreData: false,
       },
       this.fetchMoreData
     );
@@ -72,19 +71,20 @@ class ProductList extends Component {
     pricelow && (queryParameter = 'pricelow');
     pricehigh && (queryParameter = 'pricehigh');
     trend && (queryParameter = 'trend');
-    const { noData, offset } = this.state;
+    const { hasMoreData, offset, isLoading } = this.state;
 
-    fetch(`/product?sort=${queryParameter}&offset=${offset}`)
+    fetch(`${API_ENDPOINT}/product?sort=${queryParameter}&offset=${offset}`)
       .then(res => res.json())
       .then(data => {
-        const duplicatedData = [...data.LIST_DATA.product];
-        const newDatalistData = this.state.listData.concat(duplicatedData);
+        const listData = data.LIST_DATA.product;
+        const newItemList = [...this.state.listData, ...listData];
         this.setState({
-          listData: newDatalistData,
+          listData: newItemList,
         });
-        if (this.state.listData.length === 30) {
+        if (data.LIST_DATA.product.length === 0) {
           this.setState({
-            noData: !noData,
+            hasMoreData: !hasMoreData,
+            isLoading: false,
           });
           return window.removeEventListener('scroll', this.handleScroll);
         }
@@ -93,15 +93,15 @@ class ProductList extends Component {
   };
 
   showLoadingSvg = resolve => {
-    const { listData, totalCountDataFetched, loading } = this.state;
+    const { listData, isLoading } = this.state;
     return new Promise(resolve => {
-      if (listData.length !== totalCountDataFetched) {
+      if (listData.length === 0) {
         this.setState({
-          loading: false,
+          isLoading: false,
         });
       } else {
         this.setState({
-          loading: !loading,
+          isLoading: !isLoading,
         });
         setTimeout(() => {
           resolve();
@@ -111,7 +111,7 @@ class ProductList extends Component {
   };
 
   handleScroll = async () => {
-    const { totalCountDataFetched, offset } = this.state;
+    const { offset } = this.state;
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
     let scrollTotalHeight = scrollHeight;
     let scrollHeightFromTop = scrollTop;
@@ -121,7 +121,6 @@ class ProductList extends Component {
     if (isOverEndPointScroll) {
       this.setState(
         {
-          totalCountDataFetched: totalCountDataFetched + 10,
           offset: offset + 10,
         },
         await this.showLoadingSvg()
@@ -131,8 +130,7 @@ class ProductList extends Component {
   };
 
   render() {
-    const { listData, loading, totalCountDataFetched, noData, viewOptions } =
-      this.state;
+    const { listData, isLoading, hasMoreData, viewOptions } = this.state;
 
     return (
       <main className='ProductList'>
@@ -155,22 +153,15 @@ class ProductList extends Component {
                   detailImage={detailImage}
                   name={name}
                   price={price}
-                  fetchMoreData={this.fetchMoreData}
                   id={id}
                   viewOptions={viewOptions}
                 />
               );
             })}
         </div>
-        {loading ? (
-          <InfiniteScroll
-            listData={listData}
-            totalCountDataFetched={totalCountDataFetched}
-          />
-        ) : (
-          ''
-        )}
-        {noData && <GoBackToTopButton />}
+        {isLoading && <InfiniteScroll />}
+
+        {hasMoreData && <GoBackToTopButton />}
         <Footer />
       </main>
     );
