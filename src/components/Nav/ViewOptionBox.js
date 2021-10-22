@@ -23,7 +23,7 @@ class ViewOptionBox extends Component {
           </button>
         </div>
         <ul className='ViewList classForViewClose'>
-          {viewOptions.map(viewOption => {
+          {viewOptions?.map(viewOption => {
             const { isChecked, id, name } = viewOption;
             return (
               <ViewOption

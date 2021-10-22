@@ -1,17 +1,17 @@
 @import '../../styles/variables';
 
 .SignUp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
   .signUpBox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 130px 40px 100px 40px;
+    margin: 130px auto 100px auto;
 
     .inputBox {
       display: flex;
       flex-direction: column;
-      position: relative;
       width: 600px;
 
       .name,
@@ -26,6 +26,7 @@
       .emailBox,
       .passwordBox,
       .addressBox {
+        width: 100%;
         height: 43px;
         margin-bottom: 20px;
         padding-left: 10px;
@@ -34,11 +35,15 @@
         opacity: 0.8;
       }
 
+      .passwordContainer {
+        position: relative;
+      }
+
       .onEye {
         position: absolute;
         top: auto;
         left: auto;
-        bottom: 118px;
+        bottom: 30px;
         right: 30px;
         cursor: pointer;
       }
@@ -53,110 +58,110 @@
         display: none;
       }
     }
-  }
 
-  .line {
-    border: solid 1px black;
-    margin-bottom: 20px;
-  }
-
-  .checkBox {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 600px;
-    margin-top: 30px;
-
-    .agreement {
-      font-size: 15px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    .checkInput {
+    .checkBox {
       display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      padding-left: 150px;
-      margin: 10px 0px 40px;
+      flex-direction: column;
+      justify-content: center;
+      width: 600px;
+      margin-top: 30px;
 
-      .allAgree {
+      .line {
+        border: solid 1px black;
+        margin-bottom: 20px;
+      }
+
+      .agreement {
+        margin-bottom: 20px;
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      .checkInput {
         display: flex;
-        position: relative;
-        align-items: center;
-        margin-bottom: 30px;
+        flex-direction: column;
+        flex-wrap: wrap;
+        margin: 10px auto 40px auto;
+        padding-left: 150px;
 
-        .headPoint {
-          margin-right: 20px;
-          width: 15px;
-          height: 15px;
-          cursor: pointer;
+        .allAgree {
+          display: flex;
+          position: relative;
+          align-items: center;
+          margin-bottom: 30px;
+
+          .headPoint {
+            width: 15px;
+            height: 15px;
+            margin-right: 20px;
+            cursor: pointer;
+          }
+
+          .agreedName {
+            font-size: 25px;
+          }
         }
 
-        .agreedName {
-          font-size: 25px;
+        .subCheck {
+          display: flex;
+          align-items: center;
+          margin-bottom: 15px;
+          width: 500px;
+
+          .choose {
+            margin-left: 5px;
+            color: gray;
+          }
+
+          .checkPoint {
+            width: 15px;
+            height: 15px;
+            margin-right: 20px;
+            cursor: pointer;
+          }
+
+          .checkPoint:checked {
+            color: white;
+            background-color: black;
+          }
+
+          .readMore {
+            position: absolute;
+            margin-left: 300px;
+            text-decoration: underline;
+          }
         }
       }
-    }
 
-    .subCheck {
-      display: flex;
-      align-items: center;
-      margin-bottom: 15px;
-      width: 500px;
-
-      .choose {
-        margin-left: 5px;
-        color: gray;
-      }
-
-      .checkPoint {
-        margin-right: 20px;
-        width: 15px;
-        height: 15px;
-        cursor: pointer;
-      }
-
-      .checkPoint:checked {
+      .registerBox {
+        height: 40px;
+        margin-bottom: 21px;
         color: white;
         background-color: black;
+        border-radius: 45px;
+        border: none;
+        font-size: large;
+        cursor: pointer;
+
+        .registerStyle {
+          font-size: 23px;
+          -webkit-transition: all 0.1s linear;
+          transition: all 0.1s linear;
+        }
       }
 
-      .readMore {
-        position: absolute;
-        margin-left: 300px;
-        text-decoration: underline;
-      }
-    }
+      .registerBox:hover {
+        background-color: white;
+        border: solid 1px black;
 
-    .registerBox {
-      height: 40px;
-      margin-bottom: 21px;
-      color: white;
-      background-color: black;
-      border-radius: 45px;
-      border: none;
-      font-size: large;
-      cursor: pointer;
-
-      .registerStyle {
-        font-size: 23px;
-        -webkit-transition: all 0.1s linear;
-        transition: all 0.1s linear;
-      }
-    }
-
-    .registerBox:hover {
-      background-color: white;
-      border: solid 1px black;
-
-      .registerStyle:hover {
-        color: black;
-        -webkit-transform: scale(1.2);
-        -moz-transform: scale(1.2);
-        -ms-transform: scale(1.2);
-        -o-transform: scale(1.2);
-        transform: scale(1.2);
+        .registerStyle:hover {
+          color: black;
+          -webkit-transform: scale(1.2);
+          -moz-transform: scale(1.2);
+          -ms-transform: scale(1.2);
+          -o-transform: scale(1.2);
+          transform: scale(1.2);
+        }
       }
     }
   }
@@ -165,17 +170,22 @@
 @media only screen and (max-width: $widthBreakPoint) {
   .SignUp {
     .signUpBox {
-      padding-left: 10px;
-      padding-right: 10px;
-    }
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
 
-    .onEye {
-      position: absolute;
-      top: auto;
-      left: auto;
-      bottom: 40px;
-      right: 20px;
-      cursor: pointer;
+      .inputBox,
+      .checkBox {
+        width: 100vw;
+        padding-left: 30px;
+        padding-right: 30px;
+
+        .checkInput {
+          padding-left: 0%;
+          margin-left: auto;
+        }
+      }
     }
   }
 }
