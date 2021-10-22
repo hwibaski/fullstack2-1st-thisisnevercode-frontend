@@ -4,7 +4,7 @@ import { FaEye } from 'react-icons/fa';
 import { FaEyeSlash } from 'react-icons/fa';
 import Nav from '../../components/Nav/Nav';
 import Footer from '../../components/Footer';
-import API_ENDPOINT from '../../../api';
+import { API_ENDPOINT } from '../../API/api';
 import './SignIn.scss';
 
 class SignIn extends Component {
