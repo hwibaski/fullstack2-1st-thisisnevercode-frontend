@@ -1,6 +1,7 @@
 ### 💻 Thisisnevercode
 ---
 - 의류 쇼핑몰 'Thisisneverthat'을 모티브로 개발한 서비스
+- [시연 영상 링크](https://www.youtube.com/watch?v=JCl6fWud_Xw&t=2s)
 <br>
 
 ### 📆 기간
